@@ -1,20 +1,27 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# A323 Plataforma Modular
 
-# Run and deploy your AI Studio app
+Fundação da Fase 0 para um monólito modular em Next.js com App Router, TypeScript, Tailwind CSS, Prisma e PostgreSQL.
 
-This contains everything you need to run your app locally.
+## O que já existe
 
-View your app in AI Studio: https://ai.studio/apps/drive/1o-aNBgNMq2BnK6dQHqQ7rgWYUmw9-UAj
+- Estrutura base de `src/app`, `src/core`, `src/modules`, `src/shared` e `src/tests`.
+- Área pública institucional com placeholders.
+- Área privada autenticada com sessão server-side e cookie httpOnly.
+- Feature flags por módulo com fallback de manutenção.
+- Auditoria mínima com persistência em `audit_logs`.
+- Prisma schema inicial para identidade, privacidade, arquivos e auditoria.
 
-## Run Locally
+## Como rodar localmente
 
-**Prerequisites:**  Node.js
+1. Copie `.env.example` para `.env`.
+2. Suba o PostgreSQL com `docker compose up -d postgres`.
+3. Instale dependências com `npm install`.
+4. Gere o client Prisma com `npm run prisma:generate`.
+5. Aplique o schema com `npm run db:push`.
+6. Rode o app com `npm run dev`.
 
+## Próximas fases
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- Fase 1: students, guardians, classes, enrollments, attendance.
+- Fase 2: conteúdos e núcleo pedagógico.
+- Fase 3+: comunicação, mídia, privacidade avançada e integrações.
