@@ -1,0 +1,127 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AuditChannel {
+  STANDARD
+  SENSITIVE
+}
+
+model User {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  name         String
+  passwordHash String
+  isActive     Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  roles        UserRole[]
+  sessions     Session[]
+  auditLogs    AuditLog[]
+}
+
+model Role {
+  id          String           @id @default(cuid())
+  key         String           @unique
+  name        String
+  createdAt   DateTime         @default(now())
+  permissions RolePermission[]
+  users       UserRole[]
+}
+
+model Permission {
+  id        String           @id @default(cuid())
+  key       String           @unique
+  name      String
+  createdAt DateTime         @default(now())
+  roles     RolePermission[]
+}
+
+model UserRole {
+  userId     String
+  roleId     String
+  assignedAt DateTime @default(now())
+  role       Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  tokenHash String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Person {
+  id        String   @id @default(cuid())
+  fullName  String
+  document  String?  @unique
+  email     String?
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UploadedFile {
+  id          String   @id @default(cuid())
+  filename    String
+  mimeType    String
+  size        Int
+  storageKey  String   @unique
+  createdAt   DateTime @default(now())
+}
+
+model LegalBase {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+}
+
+model RetentionPolicy {
+  id           String   @id @default(cuid())
+  entityType   String
+  retentionDays Int
+  legalBaseId  String?
+  createdAt    DateTime @default(now())
+}
+
+model DataSubjectRequest {
+  id          String   @id @default(cuid())
+  requestType String
+  status      String
+  requesterId String?
+  createdAt   DateTime @default(now())
+}
+
+model AuditLog {
+  id          String       @id @default(cuid())
+  actorUserId String?
+  action      String
+  entityType  String
+  entityId    String?
+  metadata    Json?
+  sensitive   Boolean      @default(false)
+  channel     AuditChannel @default(STANDARD)
+  createdAt   DateTime     @default(now())
+  actor       User?        @relation(fields: [actorUserId], references: [id], onDelete: SetNull)
+}
