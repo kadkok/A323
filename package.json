@@ -1,7 +1,7 @@
 {
-  "name": "bíbl.ia-de-g.s.oliver",
+  "name": "cyber-puzzle-challenge",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@google/genai": "^1.35.0",
     "react-dom": "^19.2.3",
     "react": "^19.2.3"
   },

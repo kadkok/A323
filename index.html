@@ -1,43 +1,114 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#0f1115">
+    <meta name="theme-color" content="#080810">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Bíbl.IA de G.S.Oliver</title>
+    <title>CYBER PUZZLE // CHALLENGE</title>
     <link rel="manifest" href="/manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              cyber: {
+                bg:     '#080810',
+                card:   '#0d0d1a',
+                border: '#1a1a3a',
+                cyan:   '#00e5ff',
+                green:  '#39ff14',
+                pink:   '#ff00aa',
+                yellow: '#ffd700',
+                red:    '#ff0040',
+                text:   '#c8c8d8',
+                dim:    '#505080',
+              }
+            },
+            fontFamily: {
+              orbitron: ['Orbitron', 'monospace'],
+              mono:     ['Share Tech Mono', 'Courier New', 'monospace'],
+            }
+          }
+        }
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
+            font-family: 'Share Tech Mono', 'Courier New', monospace;
+            background-color: #080810;
+            color: #c8c8d8;
             -webkit-tap-highlight-color: transparent;
             overscroll-behavior-y: none;
+            min-height: 100vh;
         }
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-playfair { font-family: 'Playfair Display', serif; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0f1115; }
-        ::-webkit-scrollbar-thumb { background: #d4af37; border-radius: 3px; }
+
+        .neon-cyan   { color:#00e5ff; text-shadow:0 0 10px #00e5ff,0 0 25px #00e5ff60; }
+        .neon-green  { color:#39ff14; text-shadow:0 0 10px #39ff14,0 0 25px #39ff1460; }
+        .neon-pink   { color:#ff00aa; text-shadow:0 0 10px #ff00aa,0 0 25px #ff00aa60; }
+        .neon-yellow { color:#ffd700; text-shadow:0 0 10px #ffd700,0 0 25px #ffd70060; }
+        .neon-red    { color:#ff0040; text-shadow:0 0 10px #ff0040,0 0 25px #ff004060; }
+
+        .card-cyber  { background:#0d0d1a; border:1px solid #1a1a3a; }
+        .card-cyan   { background:#0d0d1a; border:1px solid #00e5ff40; box-shadow:0 0 20px #00e5ff18,inset 0 0 20px #00e5ff08; }
+        .card-green  { background:#0d0d1a; border:1px solid #39ff1440; box-shadow:0 0 20px #39ff1418,inset 0 0 20px #39ff1408; }
+        .card-pink   { background:#0d0d1a; border:1px solid #ff00aa40; box-shadow:0 0 20px #ff00aa18,inset 0 0 20px #ff00aa08; }
+        .card-yellow { background:#0d0d1a; border:1px solid #ffd70040; box-shadow:0 0 20px #ffd70018,inset 0 0 20px #ffd70008; }
+
+        .btn-cyber  { background:transparent; border:1px solid; cursor:pointer; transition:all .2s; font-family:'Share Tech Mono',monospace; }
+        .btn-cyan   { border-color:#00e5ff; color:#00e5ff; text-shadow:0 0 8px #00e5ff; box-shadow:0 0 10px #00e5ff28; }
+        .btn-cyan:hover   { background:#00e5ff18; box-shadow:0 0 22px #00e5ff55; }
+        .btn-green  { border-color:#39ff14; color:#39ff14; text-shadow:0 0 8px #39ff14; box-shadow:0 0 10px #39ff1428; }
+        .btn-green:hover  { background:#39ff1418; box-shadow:0 0 22px #39ff1455; }
+        .btn-pink   { border-color:#ff00aa; color:#ff00aa; text-shadow:0 0 8px #ff00aa; box-shadow:0 0 10px #ff00aa28; }
+        .btn-pink:hover   { background:#ff00aa18; box-shadow:0 0 22px #ff00aa55; }
+        .btn-yellow { border-color:#ffd700; color:#ffd700; text-shadow:0 0 8px #ffd700; box-shadow:0 0 10px #ffd70028; }
+        .btn-yellow:hover { background:#ffd70018; box-shadow:0 0 22px #ffd70055; }
+        .btn-cyber:active { transform:scale(.97); }
+        .btn-cyber:disabled { opacity:.3; cursor:not-allowed; transform:none; }
+
+        .input-cyber {
+            background:#0d0d1a; border:1px solid #1a1a3a;
+            color:#00e5ff; outline:none;
+            transition:border-color .2s, box-shadow .2s;
+            font-family:'Share Tech Mono',monospace;
+        }
+        .input-cyber:focus { border-color:#00e5ff; box-shadow:0 0 12px #00e5ff35; }
+        .input-cyber::placeholder { color:#303060; }
+
+        .scanline {
+            position:fixed; top:0; left:0; right:0; bottom:0; pointer-events:none; z-index:9999;
+            background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px);
+        }
+
+        @keyframes fadeInUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+        .fade-in { animation:fadeInUp .35s ease-out; }
+
+        @keyframes flash { 0%,100%{opacity:1} 50%{opacity:.25} }
+        .timer-critical { animation:flash .5s ease-in-out infinite; }
+
+        ::-webkit-scrollbar { width:4px; }
+        ::-webkit-scrollbar-track { background:#080810; }
+        ::-webkit-scrollbar-thumb { background:#00e5ff35; border-radius:2px; }
     </style>
 <script type="importmap">
 {
   "imports": {
-    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3"
+    "react/":     "https://esm.sh/react@^19.2.3/",
+    "react":      "https://esm.sh/react@^19.2.3"
   }
 }
 </script>
 </head>
-<body class="text-gray-200 min-h-screen select-none">
+<body class="min-h-screen select-none">
+    <div class="scanline"></div>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
 </body>
