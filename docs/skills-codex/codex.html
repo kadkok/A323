@@ -1,0 +1,668 @@
+<title>Codex de Personas — as skills do Kadmus</title>
+
+<style>
+  :root {
+    color-scheme: light dark;
+
+    /* Ateliê noturno — latão sobre madeira escura */
+    --ground:   #12100D;
+    --panel:    #1A1611;
+    --plate:    #221C15;
+    --rule:     #3A3128;
+    --rule-soft:#2A241C;
+    --ink:      #EFE5D2;
+    --ink-dim:  #B8AB93;
+    --muted:    #8D8069;
+    --brass:    #C9A227;
+    --brass-hi: #F2D98E;
+    --lamp:     rgba(232,168,64,.14);
+    --alert:      #D08A6A;
+    --alert-rule: #7A4A34;
+
+    /* Lâmpadas de guilda */
+    --g-atelie:  #E0A445;
+    --g-oficina: #56AFC0;
+    --g-mesa:    #93AC6B;
+    --g-torre:   #A387CE;
+
+    --f-plate: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, "Liberation Serif", serif;
+    --f-body:  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --f-mono:  ui-monospace, SFMono-Regular, Menlo, Consolas, "DejaVu Sans Mono", monospace;
+
+    --measure: 68ch;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --ground:   #EBE4D5;
+      --panel:    #F7F2E7;
+      --plate:    #FFFCF5;
+      --rule:     #CFC3A9;
+      --rule-soft:#DED4BE;
+      --ink:      #221C15;
+      --ink-dim:  #4E4535;
+      --muted:    #736A57;
+      --brass:    #8A6A11;
+      --brass-hi: #6E5307;
+      --lamp:     rgba(180,130,40,.10);
+      --alert:      #8C4218;
+      --alert-rule: #C08A6A;
+      --g-atelie:  #9C6A11;
+      --g-oficina: #216874;
+      --g-mesa:    #4F6626;
+      --g-torre:   #5B4489;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:#12100D; --panel:#1A1611; --plate:#221C15; --rule:#3A3128; --rule-soft:#2A241C;
+    --ink:#EFE5D2; --ink-dim:#B8AB93; --muted:#8D8069; --brass:#C9A227; --brass-hi:#F2D98E;
+    --lamp:rgba(232,168,64,.14);
+    --alert:#D08A6A; --alert-rule:#7A4A34;
+    --g-atelie:#E0A445; --g-oficina:#56AFC0; --g-mesa:#93AC6B; --g-torre:#A387CE;
+  }
+  :root[data-theme="light"] {
+    --ground:#EBE4D5; --panel:#F7F2E7; --plate:#FFFCF5; --rule:#CFC3A9; --rule-soft:#DED4BE;
+    --ink:#221C15; --ink-dim:#4E4535; --muted:#736A57; --brass:#8A6A11; --brass-hi:#6E5307;
+    --lamp:rgba(180,130,40,.10);
+    --alert:#8C4218; --alert-rule:#C08A6A;
+    --g-atelie:#9C6A11; --g-oficina:#216874; --g-mesa:#4F6626; --g-torre:#5B4489;
+  }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--f-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* A lâmpada do ateliê */
+  .lamp {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(60rem 34rem at 50% -8rem, var(--lamp), transparent 70%);
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 4.5rem) clamp(1rem, 4vw, 2.5rem) 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  /* ---------- Cabeçalho ---------- */
+
+  header { display: flex; flex-direction: column; gap: 1.1rem; }
+
+  .eyebrow {
+    font-family: var(--f-mono);
+    font-size: .72rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  h1 {
+    font-family: var(--f-plate);
+    font-weight: 700;
+    font-size: clamp(2.2rem, 6.5vw, 3.6rem);
+    line-height: 1.04;
+    letter-spacing: -.005em;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--brass-hi);
+  }
+  h1 em {
+    font-style: normal;
+    display: block;
+    font-size: .42em;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: .9rem;
+    font-weight: 400;
+  }
+
+  .lede {
+    max-width: var(--measure);
+    color: var(--ink-dim);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Busca ---------- */
+
+  .finder {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    padding: 1rem 1.1rem 1.1rem;
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+  }
+  .finder label {
+    font-family: var(--f-mono);
+    font-size: .7rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .finder input {
+    width: 100%;
+    background: var(--plate);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: .7rem .85rem;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .finder input::placeholder { color: var(--muted); }
+  .finder input:focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: 1px;
+    border-color: var(--brass);
+  }
+  .tally {
+    font-family: var(--f-mono);
+    font-size: .78rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Guildas ---------- */
+
+  .guild { display: flex; flex-direction: column; gap: 1.4rem; }
+  .guild[hidden] { display: none; }
+
+  .guild-head {
+    display: flex;
+    align-items: baseline;
+    gap: .9rem;
+    padding-bottom: .7rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .guild-head::before {
+    content: "";
+    flex: none;
+    width: .55rem; height: .55rem;
+    border-radius: 50%;
+    background: var(--hue);
+    box-shadow: 0 0 .9rem var(--hue);
+    transform: translateY(-.15em);
+  }
+  .guild-head h2 {
+    font-family: var(--f-plate);
+    font-size: 1.28rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .guild-head p {
+    margin: 0;
+    font-size: .88rem;
+    color: var(--muted);
+    flex: 1 1 14rem;
+  }
+
+  .roster { display: flex; flex-direction: column; gap: .55rem; }
+
+  /* ---------- A placa ---------- */
+
+  .persona {
+    background: var(--plate);
+    border: 1px solid var(--rule-soft);
+    border-left: 2px solid var(--hue);
+    border-radius: 2px;
+  }
+  .persona[hidden] { display: none; }
+  .persona[open] { border-color: var(--rule); border-left-color: var(--hue); }
+
+  .persona > summary {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .35rem 1rem;
+    align-items: baseline;
+    padding: .85rem 1rem;
+    cursor: pointer;
+    list-style: none;
+  }
+  .persona > summary::-webkit-details-marker { display: none; }
+  .persona > summary:focus-visible {
+    outline: 2px solid var(--brass);
+    outline-offset: -2px;
+  }
+  .persona:hover { border-color: var(--rule); }
+
+  .name {
+    font-family: var(--f-plate);
+    font-size: 1.06rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    color: var(--brass-hi);
+  }
+  .name span {
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink-dim);
+    font-size: .82em;
+  }
+
+  .slug {
+    font-family: var(--f-mono);
+    font-size: .76rem;
+    color: var(--muted);
+    justify-self: end;
+    white-space: nowrap;
+  }
+
+  .cue {
+    grid-column: 1 / -1;
+    margin: 0;
+    color: var(--ink);
+    font-size: .95rem;
+  }
+  .cue b {
+    font-weight: 600;
+    color: var(--hue);
+    font-size: .78rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-family: var(--f-mono);
+    margin-right: .5rem;
+  }
+
+  /* ---------- Dossiê aberto ---------- */
+
+  .dossier {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    padding: 0 1rem 1rem;
+    border-top: 1px solid var(--rule-soft);
+    margin-top: .2rem;
+    padding-top: .9rem;
+  }
+  .dossier dl {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, auto) 1fr;
+    gap: .45rem 1rem;
+    margin: 0;
+    font-size: .92rem;
+  }
+  .dossier dt {
+    font-family: var(--f-mono);
+    font-size: .68rem;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: .25em;
+  }
+  .dossier dd { margin: 0; color: var(--ink-dim); }
+  .dossier dd strong { color: var(--ink); font-weight: 600; }
+
+  .motto {
+    font-family: var(--f-plate);
+    font-style: italic;
+    font-size: 1.02rem;
+    color: var(--brass);
+    margin: 0;
+    padding-left: .9rem;
+    border-left: 2px solid var(--rule);
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: var(--f-mono);
+    font-size: .66rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .18em .5em;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    color: var(--muted);
+  }
+  .tag.has-card { color: var(--brass); border-color: var(--brass); }
+  .tag.missing  { color: var(--muted); }
+  .tag.absent   { color: var(--alert); border-color: var(--alert-rule); }
+
+  .empty {
+    color: var(--muted);
+    font-style: italic;
+    padding: 2rem 0;
+    text-align: center;
+  }
+  .empty[hidden] { display: none; }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.4rem;
+    color: var(--muted);
+    font-size: .88rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  footer code { font-family: var(--f-mono); color: var(--ink-dim); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .persona { transition: border-color .18s ease; }
+  }
+  @media (max-width: 34rem) {
+    .persona > summary { grid-template-columns: 1fr; }
+    .slug { justify-self: start; }
+  }
+</style>
+
+<div class="lamp"></div>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Ateliê A323 · elenco completo</p>
+    <h1>Codex de Personas<em>Quem chamar, e em que momento</em></h1>
+    <p class="lede">
+      Trinta e duas skills é coisa demais pra decorar por nome. Por personagem, não —
+      você não lembra do slug <code>xlsx</code>, mas lembra que <strong>quem mexe em planilha é o Ábaco</strong>.
+      Cada verbete abaixo traz a deixa que invoca a persona e, mais importante,
+      <strong>o que ela não faz</strong> — que é onde a escolha costuma errar.
+    </p>
+  </header>
+
+  <div class="finder">
+    <label for="q">Descreva a situação</label>
+    <input id="q" type="search" autocomplete="off" spellcheck="false"
+           placeholder="ex.: preciso de um gráfico · vou entregar hoje · comunicado pro time" />
+    <p class="tally" id="tally"></p>
+  </div>
+
+  <p class="empty" id="empty" hidden>Ninguém do elenco atende essa deixa.</p>
+
+  <!-- ============ GUILDAS ============ -->
+  <div id="guilds"></div>
+
+  <footer>
+    <p><strong>14 personas já têm card ilustrado.</strong> As demais estão marcadas como <span class="tag missing">sem card</span> — o mundo visual já está definido (ateliê noturno, luz de lâmpada quente, placa de latão gravada com o slug), então dá pra gerar as que faltam sem quebrar a coesão.</p>
+    <p><code>pro-kadmus-arquitetura-autonoma-as323</code> tem card, mas não aparece no <code>ListSkills</code> — a skill ainda não está instalada na conta.</p>
+  </footer>
+
+</div>
+
+<script>
+const GUILDS = [
+  {
+    id: "atelie", nome: "Ateliê", hue: "var(--g-atelie)",
+    linha: "Quando o entregável é visual — e a beleza é o produto, não o enfeite.",
+    membros: [
+      { n:"Gênese", ep:"o Mestre do Traço", s:"genese-art-master", card:1,
+        cue:"O produto final é a imagem — ilustração, hero, ícone, cena 3D, cartaz, identidade visual.",
+        faz:"Domina dezenas de traços (óleo, sumi-e, ukiyo-e, pixel art, low-poly, glitch, brutalism) e escolhe o certo pro briefing. Atua também como webdesigner sênior em tipografia, hierarquia e micro-interação. Carrega o checklist anti-slop e a identidade Portal A323/K4DMUS.",
+        nao:"Não é diagramador de documento. Se a saída é .pdf ou .png de pôster, o Solano faz melhor; se é slide, é o Palco.",
+        motto:"Antes do pixel, o traço." },
+      { n:"Solano", ep:"o Compositor", s:"canvas-design", card:1,
+        cue:"Peça estática pra imprimir ou exibir — pôster, capa, arte finalizada em .png ou .pdf.",
+        faz:"Composição, hierarquia, grid e foco numa peça fechada. Cria design original, nunca copia obra de artista existente.",
+        nao:"Não faz web e não anima. Página que rola e responde é do Kai.",
+        motto:"Bom design é pensamento claro tornado visível." },
+      { n:"Íris", ep:"a Semeadora", s:"algorithmic-art", card:1,
+        cue:"A arte precisa nascer de uma regra — flow field, fractal, sistema de partículas, generativo.",
+        faz:"p5.js com aleatoriedade semeada e parâmetros exploráveis, então o mesmo seed devolve a mesma peça.",
+        nao:"Não é ilustração figurativa nem gráfico de dados — aí é Gênese ou Cifra.",
+        motto:"A beleza emerge da regra." },
+      { n:"Vex", ep:"a Caldeireira", s:"theme-factory", card:1,
+        cue:"O artefato já existe e funciona, mas está sem cara.",
+        faz:"Aplica um de 10 temas prontos (cor + fonte) a slides, docs, relatórios ou landing pages — ou forja um novo na hora.",
+        nao:"Não constrói o artefato. Ela veste o que o Kai já levantou.",
+        motto:"Você escolhe o clima. Eu forjo a paleta." },
+      { n:"Nova", ep:"a Guardiã", s:"brand-guidelines", card:1,
+        cue:"Precisa parecer oficial — cores e tipografia da Anthropic.",
+        faz:"Aplica o padrão de marca a qualquer artefato que se beneficie do look-and-feel da casa.",
+        nao:"Não é identidade do A323 — a identidade Kadmus mora com o Gênese.",
+        motto:"Consistência é confiança." },
+      { n:"Pip", ep:"o Hype", s:"slack-gif-creator", card:1,
+        cue:"GIF animado pro Slack.",
+        faz:"Conhece o teto de peso e dimensão do Slack, valida antes de entregar e traz repertório de conceitos de animação.",
+        nao:"Não é vídeo nem animação longa. Oito frames e a piada tem que fechar.",
+        motto:"Frames — mas engraçado." },
+      { n:"Cifra", ep:"a Cartógrafa de Dados", s:"dataviz", card:0, nativa:1,
+        cue:"Qualquer gráfico, dashboard, KPI ou sparkline — chame ANTES da primeira linha de código do chart.",
+        faz:"Heurística de forma, fórmula de cor com validador acessível, specs de marca e regras de interação. Funciona em matplotlib, plotly, d3, Recharts, SVG puro.",
+        nao:"Não é decoração. Se você já escreveu o gráfico e quer 'deixar bonito', chamou tarde.",
+        motto:"Cor é dado. Não desperdice." }
+    ]
+  },
+  {
+    id: "oficina", nome: "Oficina", hue: "var(--g-oficina)",
+    linha: "Quando o entregável é software que precisa rodar, aguentar e ser revisado.",
+    membros: [
+      { n:"Kai", ep:"o Arquiteto de Vidro", s:"web-artifacts-builder", card:1,
+        cue:"Artifact complexo — com estado, rotas e vários componentes.",
+        faz:"React, Tailwind e shadcn/ui montados como aplicação de verdade.",
+        nao:"Não use pra HTML ou JSX de arquivo único: vira peso morto. Aí escreva direto.",
+        motto:"Se tem estado, é obra minha." },
+      { n:"Roan", ep:"o Encanador de Protocolos", s:"mcp-builder", card:1,
+        cue:"Expor uma API ou serviço externo ao Claude como ferramenta.",
+        faz:"Servidores MCP em Python (FastMCP) ou Node/TypeScript (MCP SDK), com desenho de ferramenta que o modelo consegue usar.",
+        nao:"Não é consumir API dentro do seu app — é dar ao Claude uma ferramenta nova.",
+        motto:"Toda ferramenta precisa de um cabo." },
+      { n:"Fabro", ep:"o Forjador de Personas", s:"skill-creator", card:1,
+        cue:"Falta alguém no elenco — ou uma persona existe e não está sendo chamada na hora certa.",
+        faz:"Cria skill do zero, edita e otimiza as existentes, roda evals e mede acurácia de disparo. É ele quem conserta a description quando o gatilho não pega.",
+        nao:"Meta-persona: não resolve o seu problema, resolve a falta de quem resolva.",
+        motto:"Não adicione recursos. Crie alavanca." },
+      { n:"Vigil e a Matilha", ep:"o enxame de QA", s:"multi-agent-qa-sweep", card:1,
+        cue:"\"Testa tudo\", \"acha as falhas e corrige\", \"preciso entregar em X horas\", \"valida todos os papéis\".",
+        faz:"Hunters paralelos por papel e dashboard caçam bug de UI, fluxo, IDOR cross-role, a11y e LGPD; fixers aplicam correção em worktrees isolados; validator confirma; reporter fecha changelog e relatórios.",
+        nao:"É artilharia pesada. Bug único e conhecido não precisa de enxame.",
+        motto:"Edge case deixa de ser edge quando quebra." },
+      { n:"Ás", ep:"o Urbanista", s:"pro-kadmus-arquitetura-autonoma-as323", card:1, ausente:1,
+        cue:"Arquitetura autônoma AS323 — forma, função e autonomia em sistemas auto-organizados.",
+        faz:"Tem card ilustrado pronto, mas ainda não está instalada na conta.",
+        nao:"Indisponível até ser instalada — o ListSkills não a enxerga.",
+        motto:"A cidade se projeta com propósito." },
+      { n:"O Piloto de Prova", ep:"", s:"/run", card:0, nativa:1,
+        cue:"Provar que a mudança funciona no app de verdade, não só no teste.",
+        faz:"Sobe o projeto (CLI, servidor, TUI, Electron, browser) e dirige até a tela que importa. Procura primeiro se o repo já tem skill própria de subida.",
+        nao:"Não substitui suíte de teste — complementa.",
+        motto:"Teste verde não é app funcionando." },
+      { n:"O Podador", ep:"", s:"/simplify", card:0, nativa:1,
+        cue:"O diff funciona, mas está inchado, repetitivo ou na altitude errada.",
+        faz:"Reuso, simplificação, eficiência e ajuste de altitude — e aplica as correções.",
+        nao:"NÃO caça bug. Pra isso é /code-review.",
+        motto:"O que sobra atrapalha." },
+      { n:"A Sentinela", ep:"", s:"/security-review", card:0, nativa:1,
+        cue:"Antes de abrir o PR, varrer a branch atrás de brecha.",
+        faz:"Revisão de segurança das mudanças pendentes.",
+        nao:"Não é auditoria do repositório inteiro — é do que você mudou.",
+        motto:"O que você não olhou é o que vaza." },
+      { n:"O Auditor", ep:"", s:"/review", card:0, nativa:1,
+        cue:"Revisar um pull request do GitHub.",
+        faz:"Lê o PR e comenta.",
+        nao:"Pro seu diff local ainda não enviado, use /code-review.",
+        motto:"Ninguém revisa o próprio texto." },
+      { n:"O Cartógrafo", ep:"", s:"/init", card:0, nativa:1,
+        cue:"Repositório novo e o Claude não conhece o terreno.",
+        faz:"Escreve o CLAUDE.md documentando a base de código.",
+        nao:"Roda uma vez. Depois disso, edita-se à mão.",
+        motto:"Todo repo merece um mapa." },
+      { n:"O Bibliotecário", ep:"", s:"claude-api", card:0, nativa:1,
+        cue:"Qualquer pergunta sobre modelo, preço, limite, cache, tool use ou SDK da Anthropic.",
+        faz:"Referência viva de model ids, parâmetros, streaming, MCP, agents e contagem de token.",
+        nao:"Não responda essas coisas de memória — é exatamente onde a memória erra.",
+        motto:"Consulte antes de afirmar." }
+    ]
+  },
+  {
+    id: "mesa", nome: "Escrivaninha", hue: "var(--g-mesa)",
+    linha: "Quando o entregável é um documento. Quatro cuidam do formato; dois cuidam do que está escrito.",
+    membros: [
+      { n:"Vellum", ep:"o Escrivão", s:"docx", card:0,
+        cue:"Word — .docx ou .dotx. Relatório, memorando, carta, template, timbre.",
+        faz:"Cria, lê e edita; sumário, cabeçalho, numeração, imagens, busca-e-substitui, alterações controladas e comentários.",
+        nao:"Não é PDF nem planilha.",
+        motto:"Timbre, sumário, e a margem certa." },
+      { n:"Palco", ep:"o Apresentador", s:"pptx", card:0,
+        cue:"Slides — .pptx ou .potx. Deck, pitch, apresentação. Inclusive só pra extrair o texto de um.",
+        faz:"Monta, edita, junta, separa; layouts, templates, notas do apresentador e comentários.",
+        nao:"Não é documento corrido.",
+        motto:"Um slide, uma ideia." },
+      { n:"Ábaco", ep:"o Guarda-livros", s:"xlsx", card:0,
+        cue:"Planilha — .xlsx, .xlsm, .csv, .tsv. Inclusive \"limpa essa tabela bagunçada\".",
+        faz:"Abre, corrige, calcula fórmula, formata, faz gráfico e converte entre formatos tabulares.",
+        nao:"Se o entregável final é um Word, um relatório HTML ou um script, o dado é só insumo — não é ele.",
+        motto:"A célula não mente." },
+      { n:"Selo", ep:"o Arquivista", s:"pdf", card:0,
+        cue:"PDF — juntar, dividir, girar, marca d'água, preencher formulário, criptografar, extrair imagem, OCR.",
+        faz:"Manipulação completa, incluindo tornar escaneado pesquisável.",
+        nao:"Não é quem desenha a peça — é quem fecha o envelope.",
+        motto:"Fechado, assinado, arquivado." },
+      { n:"Mira", ep:"a Coautora", s:"doc-coauthoring", card:1,
+        cue:"Escrever documentação, proposta, spec técnica ou doc de decisão — iterando junto até ficar bom.",
+        faz:"Conduz o fluxo: extrai seu contexto rápido, refina em rodadas e verifica se o texto funciona pra quem vai ler.",
+        nao:"É processo, não formato. Ela decide o que dizer; o Vellum decide em que arquivo sai.",
+        motto:"Escrever bem é reescrever." },
+      { n:"Téo", ep:"o Porta-voz", s:"internal-comms", card:1,
+        cue:"Comunicação interna — status report, update pra liderança, newsletter, FAQ, relatório de incidente.",
+        faz:"Usa os formatos que a empresa já adota, em vez de inventar um novo a cada vez.",
+        nao:"Não é texto pra cliente nem pra público externo.",
+        motto:"Clareza é gentileza." }
+    ]
+  },
+  {
+    id: "torre", nome: "Torre", hue: "var(--g-torre)",
+    linha: "Quando o que precisa mudar é o próprio Claude Code — a ferramenta, não o trabalho.",
+    membros: [
+      { n:"Aurora", ep:"a Sineira", s:"/morning", card:1,
+        cue:"Você pediu o briefing matinal, com essas palavras.",
+        faz:"Renderiza o brief como artifact estilizado, ou agenda como rotina de dia útil.",
+        nao:"Pergunta sobre sua agenda NÃO é pedido de briefing — isso se responde direto.",
+        motto:"O dia começa quando alguém o nomeia." },
+      { n:"O Metrônomo", ep:"", s:"/loop", card:0, nativa:1,
+        cue:"Rodar algo de tempos em tempos — \"checa o deploy a cada 5 min\", \"fica rodando /babysit-prs\".",
+        faz:"Repete um prompt ou slash command em intervalo; sem intervalo declarado, se auto-regula.",
+        nao:"Tarefa única não entra em loop.",
+        motto:"Cadência vence esforço." },
+      { n:"O Chaveiro", ep:"", s:"update-config", card:0, nativa:1,
+        cue:"\"De agora em diante, sempre que X…\", permissões, variáveis de ambiente, hooks.",
+        faz:"Mexe no settings.json. Comportamento automático é hook — quem executa é o harness, não o Claude.",
+        nao:"Memória e preferência NÃO fazem isso. Pra tema e modelo, /config resolve mais rápido.",
+        motto:"Regra que depende de lembrar não é regra." },
+      { n:"O Porteiro", ep:"", s:"fewer-permission-prompts", card:0, nativa:1,
+        cue:"Cansou de aprovar o mesmo comando toda hora.",
+        faz:"Varre seus transcripts, acha as chamadas read-only recorrentes e monta allowlist priorizada no settings.json do projeto.",
+        nao:"Não libera comando destrutivo — só o que é seguro por leitura.",
+        motto:"Confiança se configura uma vez." },
+      { n:"O Luthier", ep:"", s:"keybindings-help", card:0, nativa:1,
+        cue:"Reatribuir tecla, criar acorde, mexer no keybindings.json.",
+        faz:"Customiza atalhos do teclado.",
+        nao:"Não é atalho do sistema operacional.",
+        motto:"A mão decora antes da cabeça." },
+      { n:"O Zelador", ep:"", s:"session-start-hook", card:0, nativa:1,
+        cue:"Preparar o repositório pro Claude Code na web rodar teste e linter sem tropeçar.",
+        faz:"Cria e desenvolve o SessionStart hook.",
+        nao:"Não configura sua máquina local.",
+        motto:"Chegou, já tem que funcionar." },
+      { n:"O Curador", ep:"", s:"artifact-design", card:0, nativa:1,
+        cue:"Antes de publicar qualquer Artifact — carrega sozinho, você raramente chama.",
+        faz:"Calibra quanto investimento de design o pedido merece, e como executar.",
+        nao:"Não é opcional quando se publica página.",
+        motto:"Uma página bem composta nunca é a resposta errada." },
+      { n:"O Eletricista", ep:"", s:"artifact-capabilities", card:0, nativa:1,
+        cue:"A página publicada precisa fazer o que HTML estático não faz — ler dado ao vivo, guardar estado entre visitantes, se republicar.",
+        faz:"Serve o roster de capacidades runtime disponíveis pra você e as chamadas tipadas.",
+        nao:"Página estática não precisa dele.",
+        motto:"Sem fiação, é só desenho." }
+    ]
+  }
+];
+
+const guildsEl = document.getElementById("guilds");
+const q = document.getElementById("q");
+const tally = document.getElementById("tally");
+const empty = document.getElementById("empty");
+
+guildsEl.style.display = "flex";
+guildsEl.style.flexDirection = "column";
+guildsEl.style.gap = "clamp(2.5rem, 5vw, 3.5rem)";
+
+const esc = (s) => s.replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+for (const g of GUILDS) {
+  const sec = document.createElement("section");
+  sec.className = "guild";
+  sec.style.setProperty("--hue", g.hue);
+
+  const rows = g.membros.map(m => {
+    const tag = m.ausente
+      ? '<span class="tag absent">não instalada</span>'
+      : (m.card ? '<span class="tag has-card">card ilustrado</span>' : '<span class="tag missing">sem card</span>');
+    const nativa = m.nativa ? '<span class="tag">nativa do Claude Code</span>' : "";
+    const hay = [m.n, m.ep, m.s, m.cue, m.faz, m.nao, m.motto].join(" ").toLowerCase();
+    return `
+      <details class="persona" data-hay="${esc(hay)}">
+        <summary>
+          <span class="name">${esc(m.n)}${m.ep ? ` <span>, ${esc(m.ep)}</span>` : ""}</span>
+          <span class="slug">${esc(m.s)}</span>
+          <p class="cue"><b>chame quando</b>${esc(m.cue)}</p>
+        </summary>
+        <div class="dossier">
+          <dl>
+            <dt>Faz</dt><dd>${esc(m.faz)}</dd>
+            <dt>Não faz</dt><dd>${esc(m.nao)}</dd>
+          </dl>
+          <p class="motto">&ldquo;${esc(m.motto)}&rdquo;</p>
+          <p>${tag} ${nativa}</p>
+        </div>
+      </details>`;
+  }).join("");
+
+  sec.innerHTML = `
+    <div class="guild-head">
+      <h2>${esc(g.nome)}</h2>
+      <p>${esc(g.linha)}</p>
+    </div>
+    <div class="roster">${rows}</div>`;
+  guildsEl.appendChild(sec);
+}
+
+const allPersonas = [...document.querySelectorAll(".persona")];
+
+function filter() {
+  const term = q.value.trim().toLowerCase();
+  let shown = 0;
+
+  for (const p of allPersonas) {
+    const hit = !term || p.dataset.hay.includes(term);
+    p.hidden = !hit;
+    if (hit) shown++;
+    if (term && hit) p.open = true;
+    if (!term) p.open = false;
+  }
+
+  for (const sec of document.querySelectorAll(".guild")) {
+    sec.hidden = ![...sec.querySelectorAll(".persona")].some(p => !p.hidden);
+  }
+
+  empty.hidden = shown > 0;
+  tally.textContent = term
+    ? `${shown} de ${allPersonas.length} personas atendem "${q.value.trim()}"`
+    : `${allPersonas.length} personas · 4 guildas · 14 com card ilustrado`;
+}
+
+q.addEventListener("input", filter);
+filter();
+</script>
